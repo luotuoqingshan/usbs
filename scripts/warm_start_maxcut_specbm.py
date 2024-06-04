@@ -82,12 +82,13 @@ if __name__ == "__main__":
     except:
         problem = mat73_loadmat(DATAFILE)
         dict_format = True
-    if "Gset" in DATAFILE:
-        C = problem["Problem"][0][0][1]
-    elif "DIMACS" in DATAFILE and not dict_format:
-        C = problem["Problem"][0][0][2]
-    elif "DIMACS" in DATAFILE and dict_format:
-        C = problem["Problem"]["A"]
+    #if "Gset" in DATAFILE:
+    #    C = problem["Problem"][0][0][1]
+    #elif "DIMACS" in DATAFILE and not dict_format:
+    #    C = problem["Problem"][0][0][2]
+    #elif "DIMACS" in DATAFILE and dict_format:
+    if dict_format:
+        C = problem["A"]
     else:
         raise ValueError("Unknown path type")
 
@@ -150,12 +151,13 @@ if __name__ == "__main__":
     except:
         problem = mat73_loadmat(DATAFILE)
         dict_format = True
-    if "Gset" in DATAFILE:
-        C = problem["Problem"][0][0][1]
-    elif "DIMACS" in DATAFILE and not dict_format:
-        C = problem["Problem"][0][0][2]
-    elif "DIMACS" in DATAFILE and dict_format:
-        C = problem["Problem"]["A"]
+    #if "Gset" in DATAFILE:
+    #    C = problem["Problem"][0][0][1]
+    #elif "DIMACS" in DATAFILE and not dict_format:
+    #    C = problem["Problem"][0][0][2]
+    #elif "DIMACS" in DATAFILE and dict_format:
+    if dict_format:
+        C = problem["A"]
     else:
         raise ValueError("Unknown path type")
 
