@@ -7,6 +7,7 @@ from mat73 import loadmat as mat73_loadmat
 import pickle
 from scipy.io import loadmat  # type: ignore
 import sys
+import os
 
 from solver.specbm import specbm
 from utils.common import str2bool
@@ -65,6 +66,13 @@ def get_hparams():
 
 if __name__ == "__main__":
     jax.config.update("jax_enable_x64", True)
+    # attempt to disable multi-threading but it doesn't seem to work well
+    # see discussion at https://github.com/google/jax/issues/1539
+    os.environ["XLA_FLAGS"
+      ] = "--xla_cpu_multi_thread_eigen=false intra_op_parallelism_threads=1"
+    os.environ["OPENBLAS_NUM_THREADS"] = "1"
+    os.environ["MKL_NUM_THREADS"] = "1"
+    os.environ["OMP_NUM_THREAD"] = "1"
 
     # get experiment hparams and print them out
     hparams = get_hparams()
@@ -87,6 +95,7 @@ if __name__ == "__main__":
     #elif "DIMACS" in DATAFILE and not dict_format:
     #    C = problem["Problem"][0][0][2]
     #elif "DIMACS" in DATAFILE and dict_format:
+    #    C = problem["Problem"]["A"]
     if dict_format:
         C = problem["A"]
     else:
@@ -156,6 +165,7 @@ if __name__ == "__main__":
     #elif "DIMACS" in DATAFILE and not dict_format:
     #    C = problem["Problem"][0][0][2]
     #elif "DIMACS" in DATAFILE and dict_format:
+    #    C = problem["Problem"]["A"]
     if dict_format:
         C = problem["A"]
     else:
